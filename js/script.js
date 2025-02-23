@@ -3,7 +3,10 @@ import { beep, doBeep, playTune, playJingle } from './sound.js';
 console.log("I'm loaded into guessnumber ...")
 
 // make a function for out() ... just a shorthand for console.log() ...
-function out(any) { console.log(any)}
+function out(any) {
+    console.log(any)
+}
+
 out("ready to guess")
 
 // Select message class in html and make a const variable ...
@@ -37,10 +40,7 @@ function checkNumber(btn) {
     out("Guess= " + guess)
     out("Secret number= " + secretNumber)
     // if else statement / logic to do the check from user input against number to guess and if it is within the range of 0 and 20 ...
-    if (guess > 20) {
-        lblMessage.textContent = "Only guess numbers between 0 and 20!";
-        subtract();
-    } else if (guess < 0) {
+    if (guess > 20 || guess < 0) {
         lblMessage.textContent = "Only guess numbers between 0 and 20!";
         subtract();
     }
@@ -53,15 +53,17 @@ function checkNumber(btn) {
     } else if (guess = secretNumber) {
         lblMessage.textContent = "You guessed the number 🍟"
         youWin();
+    } else {
+        out("Unknown error ...");
     }
 }
-
 
 // function to subtract from score ...
 function subtract() {
     let newScore = lblScore.textContent -= 1;
+
     if (newScore < 0 ) {
-        // you loose ...
+        youLoose();
     } else {
         out(newScore);
     }
@@ -70,14 +72,13 @@ function subtract() {
 // Set new high score or check if a win is better than others ...
 function youWin(){
     // check if highscore is beaten and update if so ...
-    playJingle();
+        playJingle();
     let score = lblScore.textContent;
+
     if (score > highScore) {
         highScore = lblScore.textContent;
         lblHighScore.textContent = score;
     }
-
-    // Play sound ...
 
     let btnCheck = document.querySelector(".check")
     btnCheck.disabled = true;
@@ -90,6 +91,22 @@ function youWin(){
 
 }
 
+// if score gets below 0 ...
+function youLoose(){
+    let btnCheck = document.querySelector(".check")
+    btnCheck.disabled = true;
+    btnCheck.style.backgroundColor = "black";
+
+    let btnAgain = document.querySelector(".again")
+    btnAgain.disabled = false;
+    btnAgain.style.backgroundColor = "white";
+    lblNumber.textContent = null;
+
+    let title = document.querySelector(".number")
+    title.textContent = "😞";
+}
+
+
 // function to set the number to guess with random logic and between 0 and 20 (Math.trunc(...) ) ...
 let secretNumber = 10;
 function getSecretNumber(btn) {
@@ -101,6 +118,9 @@ function getSecretNumber(btn) {
 
 // Start a new game ...
 function startGame() {
+    let title = document.querySelector(".number")
+    title.textContent = "?"
+
     lblScore.textContent = 20;
     lblMessage.textContent = "Start guessing again ...";
 
