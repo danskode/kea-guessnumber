@@ -45,7 +45,10 @@ function playJingle() {
     beepArr.forEach(playTune)
 }
 
-pbBeep.addEventListener('click', doBeep)
+// pbBeep.addEventListener('click', doBeep)
 const pbJingle = document.querySelector(".pbJingle");
 out(pbJingle);
-pbJingle.addEventListener('click', playJingle)
+//pbJingle.addEventListener('click', playJingle)
+
+// Export the functions
+export { beep, doBeep, playTune, playJingle };

@@ -1,3 +1,5 @@
+import { beep, doBeep, playTune, playJingle } from './sound.js';
+
 console.log("I'm loaded into guessnumber ...")
 
 // make a function for out() ... just a shorthand for console.log() ...
@@ -67,6 +69,7 @@ function subtract() {
 // Set new high score or check if a win is better than others ...
 function youWin(){
     // check if highscore is beaten and update if so ...
+    playJingle();
     let score = lblScore.textContent;
     if (score > highScore) {
         highScore = lblScore.textContent;
