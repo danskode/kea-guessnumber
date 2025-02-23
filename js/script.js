@@ -35,6 +35,7 @@ function checkNumber(btn) {
     // Grab input value from inpGuess as let variable guess ...
     let guess = inpGuess.value; // inpGuess is set in line 20 above ... '.value' is the user input ...
     out("Guess= " + guess)
+    out("Secret number= " + secretNumber)
     // if else statement / logic to do the check from user input against number to guess and if it is within the range of 0 and 20 ...
     if (guess > 20) {
         lblMessage.textContent = "Only guess numbers between 0 and 20!";
@@ -49,7 +50,7 @@ function checkNumber(btn) {
     } else if (guess < secretNumber) {
         lblMessage.textContent = "Value is to low"
         subtract();
-    } else {
+    } else if (guess = secretNumber) {
         lblMessage.textContent = "You guessed the number 🍟"
         youWin();
     }
@@ -89,8 +90,17 @@ function youWin(){
 
 }
 
+// function to set the number to guess with random logic and between 0 and 20 (Math.trunc(...) ) ...
+let secretNumber = 10;
+function getSecretNumber(btn) {
+    out("start secret")
+    secretNumber = Math.trunc(Math.random()*20) + 1;
+    out("Secret number =" + secretNumber)
+    return secretNumber;
+}
+
+// Start a new game ...
 function startGame() {
-    secretNumber = getSecretNumber();
     lblScore.textContent = 20;
     lblMessage.textContent = "Start guessing again ...";
 
@@ -101,14 +111,10 @@ function startGame() {
     let btnAgain = document.querySelector(".again")
     btnAgain.disabled = true;
     btnAgain.style.backgroundColor = "black";
-}
 
-// function to set the number to guess with random logic and between 0 and 20 (Math.trunc(...) ) ...
-let secretNumber = 10;
-function getSecretNumber(btn) {
-    out("start secret")
-    secretNumber = Math.trunc(Math.random()*20) + 1;
-    out("Secret number =" + secretNumber)
+    secretNumber = getSecretNumber();
+    inpGuess.value = null;
+
 }
 
 // set variable for check class (html button) ...
